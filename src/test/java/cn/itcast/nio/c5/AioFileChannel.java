@@ -14,7 +14,7 @@ import static cn.itcast.nio.c2.ByteBufferUtil.debugAll;
 @Slf4j
 public class AioFileChannel {
     public static void main(String[] args) throws IOException {
-        try (AsynchronousFileChannel channel = AsynchronousFileChannel.open(Paths.get("data.txt"), StandardOpenOption.READ)) {
+        try (AsynchronousFileChannel channel = AsynchronousFileChannel.open(Paths.get("src/test/data.txt"), StandardOpenOption.READ)) {
             // 参数1 ByteBuffer
             // 参数2 读取的起始位置
             // 参数3 附件

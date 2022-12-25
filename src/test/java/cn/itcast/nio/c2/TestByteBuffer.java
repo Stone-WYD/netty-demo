@@ -13,7 +13,7 @@ public class TestByteBuffer {
     public static void main(String[] args) {
         // FileChannel
         // 1. 输入输出流， 2. RandomAccessFile
-        try (FileChannel channel = new FileInputStream("data.txt").getChannel()) {
+        try (FileChannel channel = new FileInputStream("src/test/data.txt").getChannel()) {
             // 准备缓冲区
             ByteBuffer buffer = ByteBuffer.allocate(10);
             while(true) {

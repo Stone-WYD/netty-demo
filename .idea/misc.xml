@@ -13,7 +13,6 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/netty-demo/pom.xml" />
-        <option value="$PROJECT_DIR$/netty-demo-test/pom.xml" />
       </list>
     </option>
   </component>
