@@ -2,6 +2,7 @@ package cn.itcast.client;
 
 import cn.itcast.message.*;
 import cn.itcast.protocol.MessageCodecSharable;
+import cn.itcast.protocol.MessageCodecSharableWYD;
 import cn.itcast.protocol.ProcotolFrameDecoder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
@@ -28,7 +29,7 @@ public class ChatClient {
     public static void main(String[] args) {
         NioEventLoopGroup group = new NioEventLoopGroup();
         LoggingHandler LOGGING_HANDLER = new LoggingHandler(LogLevel.DEBUG);
-        MessageCodecSharable MESSAGE_CODEC = new MessageCodecSharable();
+        MessageCodecSharableWYD MESSAGE_CODEC = new MessageCodecSharableWYD();
         CountDownLatch WAIT_FOR_LOGIN = new CountDownLatch(1);
         AtomicBoolean LOGIN = new AtomicBoolean(false);
         AtomicBoolean EXIT = new AtomicBoolean(false);
@@ -37,14 +38,14 @@ public class ChatClient {
             Bootstrap bootstrap = new Bootstrap();
             bootstrap.channel(NioSocketChannel.class);
             bootstrap.group(group);
-            bootstrap.handler(new ChannelInitializer<SocketChannel>() {
+            bootstrap.handler(new ChannelInitializer<NioSocketChannel>() {
                 @Override
-                protected void initChannel(SocketChannel ch) throws Exception {
+                protected void initChannel(NioSocketChannel ch) throws Exception {
                     ch.pipeline().addLast(new ProcotolFrameDecoder());
                     ch.pipeline().addLast(MESSAGE_CODEC);
                     // 用来判断是不是 读空闲时间过长，或 写空闲时间过长
                     // 3s 内如果没有向服务器写数据，会触发一个 IdleState#WRITER_IDLE 事件
-                    ch.pipeline().addLast(new IdleStateHandler(0, 3, 0));
+                    ch.pipeline().addLast(new IdleStateHandler(0, 1, 0));
                     // ChannelDuplexHandler 可以同时作为入站和出站处理器
                     ch.pipeline().addLast(new ChannelDuplexHandler() {
                         // 用来触发特殊事件
